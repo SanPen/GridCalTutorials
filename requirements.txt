@@ -2,3 +2,6 @@ GridCal>=4.2.6
 numpy
 scikit-learn
 matplotlib
+uvicorn
+fastapi
+requests

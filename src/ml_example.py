@@ -1,7 +1,9 @@
 #
 # GridCal Tutorials
-# (c) Santiago Peñate-Vera, 2021
+# Machine Learning example
 #
+# (c) Santiago Peñate-Vera, 2021
+
 import os
 from sklearn.neighbors import KNeighborsRegressor
 from sklearn.linear_model import LinearRegression
@@ -92,7 +94,7 @@ def plot(real, predicted, title):
 
 if __name__ == '__main__':
     plt.style.use('fivethirtyeight')
-    fname = os.path.join('.', 'data', 'IEEE39_1W.gridcal')
+    fname = os.path.join('..', 'data', 'IEEE39_1W.gridcal')
 
     # open the file
     main_circuit = gce.FileOpen(fname).open()
