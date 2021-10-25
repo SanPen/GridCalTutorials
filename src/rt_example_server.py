@@ -29,15 +29,15 @@ def available_grids():
 
 
 @app.get('/loads', status_code=200)
-def get_loads(file_name):
+def get_loads(file_name, request: Request):
     """
     Get the loads data
     :param file_name: grid file name
     :return: loads' data
     """
     path = os.path.join(__grids_dir__, file_name)
-    circuit = gce.FileOpen(path).open()
-    loads = circuit.get_loads()
+    request.app.circuit = gce.FileOpen(path).open()
+    loads = request.app.circuit.get_loads()
     data = [{'id': elm.idtag, 'name': elm.name, 'P': elm.P, 'Q': elm.Q} for elm in loads]
     return data
 
@@ -52,10 +52,10 @@ async def power_flow(file_name, request: Request):
     """
     data = await request.json()
 
-    path = os.path.join(__grids_dir__, file_name)
-    circuit = gce.FileOpen(path).open()
+    # path = os.path.join(__grids_dir__, file_name)
+    # circuit = gce.FileOpen(path).open()
 
-    loads = circuit.get_loads()
+    loads = request.app.circuit.get_loads()
 
     if len(loads) == len(data):
 
@@ -64,7 +64,7 @@ async def power_flow(file_name, request: Request):
             load.P = datum['P']
             load.Q = datum['Q']
 
-    driver = gce.PowerFlowDriver(grid=circuit,
+    driver = gce.PowerFlowDriver(grid=request.app.circuit,
                                  options=gce.PowerFlowOptions())
     driver.run()
 
