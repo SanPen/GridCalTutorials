@@ -38,13 +38,3 @@ while True:
     response = requests.post(api_url, json=loads)
     power_flow = response.json()
     print(power_flow)
-    v = power_flow['voltage']
-    dt = time.time() - t0
-    x = np.ones(len(v)) * dt
-    plt.scatter(x, v)
-    plt.pause(0.05)
-    time.sleep(1)
-
-plt.show()
-
-

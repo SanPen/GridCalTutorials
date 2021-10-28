@@ -20,7 +20,7 @@ def train_ml(circuit, options):
     :return:
     """
 
-    driver = gce.TimeSeriesClustering(grid=circuit, options=options, cluster_number=100)
+    driver = gce.TimeSeriesClustering(grid=circuit, options=options, cluster_number=50)
     driver.run()
 
     voltage_model = KNeighborsRegressor(n_neighbors=4, leaf_size=10)
@@ -93,6 +93,7 @@ def plot(real, predicted, title):
 
 
 if __name__ == '__main__':
+
     plt.style.use('fivethirtyeight')
     fname = os.path.join('..', 'data', 'IEEE39_1W.gridcal')
 

@@ -24,7 +24,14 @@ def available_grids():
     """
     Get the filenames of the available grids
     """
-    file_names = next(os.walk(__grids_dir__), (None, None, []))[2]
+    file_names = list()
+
+    # r=root, d=directories, f = files
+    for r, d, f in os.walk(__grids_dir__):
+        for file in f:
+            if file.endswith(".gridcal"):
+                file_names.append(os.path.join(r, file))
+
     return file_names
 
 
